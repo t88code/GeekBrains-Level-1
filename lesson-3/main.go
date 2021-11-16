@@ -10,11 +10,19 @@ func main() {
 
 	for {
 		if err := calculator(); err != nil {
-			fmt.Println(err.Error())
-			fmt.Println("Попробуйте снова!")
+			fmt.Printf("%s, попробуйте снова!", err.Error())
 		}
 	}
 
+}
+
+func findOp(op string, ops []string) bool {
+	for _, value := range ops {
+		if value == op {
+			return true
+		}
+	}
+	return false
 }
 
 func calculator() error {
@@ -27,7 +35,7 @@ func calculator() error {
 		return fmt.Errorf("введено неверное значение")
 	}
 
-	if op == "+" || op == "-" || op == "*" || op == "/" {
+	if findOp(op, []string{"+", "-", "*", "/"}) {
 
 		var a, b float64
 
@@ -55,7 +63,7 @@ func calculator() error {
 			res = a / b
 		}
 
-	} else if op == "sin" || op == "cos" || op == "tan" {
+	} else if findOp(op, []string{"sin", "cos", "tan"}) {
 
 		var rad float64
 
@@ -73,7 +81,7 @@ func calculator() error {
 			res = math.Tan(rad)
 		}
 
-	} else if op == "ln" || op == "log" {
+	} else if findOp(op, []string{"ln", "log"}) {
 
 		var a float64
 
