@@ -16,7 +16,7 @@ func main() {
 		"3 - Программа для определения сотен, десятков и единиц в трехзначном числе")
 
 	if _, err := fmt.Scan(&n); err != nil {
-		fmt.Println("Ошибка: %s", err.Error())
+		fmt.Println("Ошибка: ", err.Error())
 	}
 
 	switch n {
