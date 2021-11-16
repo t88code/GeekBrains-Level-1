@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"os"
 )
 
 func main() {
@@ -17,23 +16,28 @@ func main() {
 		"3 - Программа для определения сотен, десятков и единиц в трехзначном числе")
 
 	if _, err := fmt.Scan(&n); err != nil {
-		fmt.Println("Ошибка:", err.Error())
-		os.Exit(1)
+		fmt.Println("Ошибка: %s", err.Error())
 	}
 
 	switch n {
 	case 1:
-		calcAreaRectangle()
+		if err := calcAreaRectangle(); err != nil {
+			fmt.Println(err.Error())
+		}
 	case 2:
-		calcCircleParametrs()
+		if err := calcCircleParametrs(); err != nil {
+			fmt.Println(err.Error())
+		}
 	case 3:
-		calcNumberRank()
+		if err := calcNumberRank(); err != nil {
+			fmt.Println(err.Error())
+		}
 	default:
 		fmt.Println("Номер программы не определен")
 	}
 }
 
-func calcAreaRectangle() {
+func calcAreaRectangle() error {
 
 	fmt.Println("Выбрана программа для вычисления площади прямоугольника")
 
@@ -41,43 +45,41 @@ func calcAreaRectangle() {
 
 	fmt.Print("Введите длину a: ")
 	if _, err := fmt.Scan(&a); err != nil {
-		fmt.Println("Ошибка:", err.Error())
-		os.Exit(1)
+		return fmt.Errorf("Ошибка: %s", err.Error())
 	}
 
 	fmt.Print("Введите длину b: ")
 	if _, err := fmt.Scan(&b); err != nil {
-		fmt.Println("Ошибка:", err.Error())
-		os.Exit(1)
+		return fmt.Errorf("Ошибка: %s", err.Error())
 	}
 
 	s = a * b
 
 	fmt.Println("Площадь прямоугольника - ", s)
+	return nil
 }
 
-func calcCircleParametrs() {
+func calcCircleParametrs() error {
 
 	fmt.Println("Выбрана программа для вычисления диаметра и длины окружности по заданной площади круга")
 
 	var d, l, s float64
-	pi := math.Pi
 
 	fmt.Print("Введите площадь окружности: ")
 	if _, err := fmt.Scan(&s); err != nil {
-		fmt.Println("Ошибка:", err.Error())
-		os.Exit(1)
+		return fmt.Errorf("Ошибка: %s", err.Error())
 	}
 
-	d = 2 * math.Sqrt(s/pi)
-	l = d * pi
+	d = 2 * math.Sqrt(s/math.Pi)
+	l = d * math.Pi
 
 	fmt.Println("Диаметр окружности - ", d)
 	fmt.Println("Длина окружности - ", l)
+	return nil
 
 }
 
-func calcNumberRank() {
+func calcNumberRank() error {
 
 	fmt.Println("Выбрана программа для определения сотен, десятков и единиц в трехзначном числе")
 
@@ -85,13 +87,11 @@ func calcNumberRank() {
 
 	fmt.Print("Введите трехзначное число: ")
 	if _, err := fmt.Scan(&x); err != nil {
-		fmt.Println("Ошибка:", err.Error())
-		os.Exit(1)
+		return fmt.Errorf("Ошибка: %s", err.Error())
 	}
 
 	if x < 100 || x > 999 {
-		fmt.Println("Необходимо ввести трехзначное число")
-		os.Exit(1)
+		return fmt.Errorf("Необходимо ввести трехзначное число")
 	}
 
 	s = x / 100
@@ -101,5 +101,5 @@ func calcNumberRank() {
 	fmt.Println("Сотен - ", s)
 	fmt.Println("Десятков - ", d)
 	fmt.Println("Единиц - ", e)
-
+	return nil
 }
