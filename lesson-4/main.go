@@ -7,6 +7,17 @@ import (
 	"strconv"
 )
 
+func sortSlice(inputNums []int64) {
+	// Сортировка простыми обменами, сортировка пузырьком
+	for i := 0; i < len(inputNums); i++ {
+		for i := 0; i < len(inputNums)-1; i++ {
+			if inputNums[i] > inputNums[i+1] {
+				inputNums[i], inputNums[i+1] = inputNums[i+1], inputNums[i]
+			}
+		}
+	}
+}
+
 func main() {
 
 	inputNums := []int64{}
@@ -30,16 +41,7 @@ func main() {
 	}
 
 	fmt.Println("Введена последовательность чисел: ", inputNums)
-
-	// Сортировка простыми обменами, сортировка пузырьком
-	for range inputNums {
-		for i := 0; i < len(inputNums)-1; i++ {
-			if inputNums[i] > inputNums[i+1] {
-				inputNums[i], inputNums[i+1] = inputNums[i+1], inputNums[i]
-			}
-		}
-	}
-
+	sortSlice(inputNums)
 	fmt.Println("Последовательность чисел отсортирована: ", inputNums)
 
 }
